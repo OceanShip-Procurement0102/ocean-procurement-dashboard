@@ -12,8 +12,12 @@
     --panel: #121b2e;
     --panel-alt: #16213a;
     --border: #24304a;
+    --border-soft: #1b2740;
     --text: #e9eef7;
     --muted: #8b96ab;
+    --detail: #7686a3;
+    --ops-color: #9fb0c9;
+    --track: #1c2740;
     --gold: #f0a93a;
     --green: #34c77b;
     --red: #ef5b5b;
@@ -21,10 +25,17 @@
     --purple: #9b6ff0;
     --teal: #5ed6c7;
     --panel-glass: rgba(18,27,46,0.62);
+    --bg-radial: #182644;
+    --btn-hover: #1c2b48;
+    --primary-hover: #e59a28;
+    --logo-ink: #1a1200;
+    --shimmer: rgba(255,255,255,0.07);
+    --hover-row: rgba(255,255,255,0.035);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
-    background: radial-gradient(1200px 600px at 85% -10%, #182644 0%, transparent 60%), var(--bg);
+    background: radial-gradient(1200px 600px at 85% -10%, var(--bg-radial) 0%, transparent 60%), var(--bg);
+    transition: background .25s ease, color .25s ease;
     color: var(--text);
     font-family: 'Cairo', sans-serif;
     padding: 22px;
@@ -49,7 +60,7 @@
     width:38px; height:38px; border-radius:10px;
     background: linear-gradient(135deg, var(--gold), #c9791f);
     display:flex; align-items:center; justify-content:center;
-    font-weight:900; color:#1a1200; font-size:15px;
+    font-weight:900; color:var(--logo-ink); font-size:15px;
     position:relative;
     animation: beaconPulse 3.4s ease-in-out infinite;
   }
@@ -94,9 +105,21 @@
     display:flex; align-items:center; gap:6px;
     transition: .15s;
   }
-  .btn:hover{ background:#1c2b48; }
+  .btn:hover{ background:var(--btn-hover); }
   .btn.primary{ background: var(--gold); color:#241900; border-color: var(--gold); }
-  .btn.primary:hover{ background:#e59a28; }
+  .btn.primary:hover{ background:var(--primary-hover); }
+  .theme-select{
+    background: var(--panel-alt);
+    border:1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: 9px;
+    font-family:'Cairo',sans-serif;
+    font-size:12px;
+    font-weight:600;
+    cursor:pointer;
+    outline:none;
+  }
 
   .sync-bar{
     display:flex; align-items:center; gap:10px; flex-wrap:wrap;
@@ -129,7 +152,7 @@
   }
   .kpi .value{ font-size: 26px; font-weight:900; line-height:1; }
   .kpi .label{ font-size:12px; color:var(--muted); font-weight:600; margin-top:8px; }
-  .kpi .detail{ font-size:10.5px; color:#5f6b82; margin-top:4px; font-weight:500; }
+  .kpi .detail{ font-size:10.5px; color:var(--detail); margin-top:4px; font-weight:500; }
 
   .kpi.trend{ grid-column: span 2; }
   .kpi.trend .spark{ margin-top:8px; }
@@ -145,7 +168,7 @@
   }
   .gauge-text .label{ font-size:12px; color:var(--muted); font-weight:600; }
   .gauge-text .value{ font-size:15px; font-weight:800; margin-top:4px; }
-  .gauge-text .detail{ font-size:10.5px; color:#5f6b82; margin-top:3px; }
+  .gauge-text .detail{ font-size:10.5px; color:var(--detail); margin-top:3px; }
 
   .filters{
     display:flex; align-items:center; gap:10px; flex-wrap:wrap;
@@ -200,7 +223,7 @@
     padding: 12px 16px;
     font-size:13px;
     font-weight:600;
-    border-bottom: 1px solid #1b2740;
+    border-bottom: 1px solid var(--border-soft);
     white-space:nowrap;
   }
   tbody tr:last-child td{ border-bottom:none; }
@@ -216,8 +239,8 @@
   .pill.none{ background: rgba(94,214,199,.14); color:var(--teal); }
   .pill.finished{ background: rgba(52,199,123,.14); color:var(--green); }
   .pill.notfinished{ background: rgba(239,91,91,.14); color:var(--red); }
-  .ops-code{ color:#9fb0c9; font-weight:700; }
-  .row-num{ color:#5f6b82; font-weight:700; text-align:center; position:relative; }
+  .ops-code{ color:var(--ops-color); font-weight:700; }
+  .row-num{ color:var(--detail); font-weight:700; text-align:center; position:relative; }
   tbody tr{ cursor:pointer; }
   tbody tr.row-finished{ box-shadow: inset 3px 0 0 var(--green); background: linear-gradient(90deg, rgba(52,199,123,.05), transparent 55%); }
   tbody tr.row-notfinished{ box-shadow: inset 3px 0 0 var(--red); background: linear-gradient(90deg, rgba(239,91,91,.04), transparent 55%); }
@@ -229,7 +252,7 @@
     will-change: transform;
   }
   tbody tr:hover{
-    background: rgba(255,255,255,0.035);
+    background: var(--hover-row);
     transform: scale(1.008) translateY(-1px);
     box-shadow: 0 6px 18px -6px rgba(0,0,0,0.45);
     position: relative;
@@ -299,7 +322,7 @@
   .header{ position:relative; }
   .header::after{
     content:""; position:absolute; inset:0; border-radius:14px; pointer-events:none;
-    background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,0.05) 48%, rgba(255,255,255,0.09) 50%, rgba(255,255,255,0.05) 52%, transparent 60%);
+    background: linear-gradient(115deg, transparent 40%, var(--shimmer) 48%, var(--shimmer) 50%, var(--shimmer) 52%, transparent 60%);
     background-size: 250% 100%;
     animation: shimmerSweep 7s ease-in-out infinite;
   }
@@ -340,7 +363,7 @@
     transition:.15s;
   }
   .modal-close:hover{ color:var(--text); background:#1c2b48; }
-  .modal-row{ display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid #1b2740; font-size:12.5px; gap:10px; }
+  .modal-row{ display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid var(--border-soft); font-size:12.5px; gap:10px; }
   .modal-row:last-child{ border-bottom:none; }
   .modal-row .k{ color:var(--muted); font-weight:600; white-space:nowrap; }
   .modal-row .v{ font-weight:800; text-align:left; }
@@ -355,6 +378,58 @@
   .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
   .toast .dotgreen{ width:7px; height:7px; border-radius:50%; background:var(--green); box-shadow:0 0 6px var(--green); flex-shrink:0; }
 
+  /* ===== Intro Splash ===== */
+  #introOverlay{
+    position:fixed; inset:0; z-index:5000;
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px;
+    background: radial-gradient(1200px 600px at 85% -10%, var(--bg-radial) 0%, transparent 60%), var(--bg);
+    transition: opacity .45s ease, visibility .45s ease;
+  }
+  #introOverlay.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+  .intro-badge{
+    width:60px; height:60px; border-radius:16px;
+    background: linear-gradient(135deg, var(--gold), #c9791f);
+    display:flex; align-items:center; justify-content:center;
+    font-weight:900; color:var(--logo-ink); font-size:22px;
+    box-shadow: 0 0 0 0 rgba(240,169,58,0.4);
+    animation: introBadgePulse 1.6s ease-in-out infinite, introPop .5s ease both;
+  }
+  @keyframes introBadgePulse{
+    0%,100%{ box-shadow: 0 0 0 0 rgba(240,169,58,0.35); }
+    50%{ box-shadow: 0 0 0 12px rgba(240,169,58,0), 0 0 26px 4px rgba(240,169,58,0.3); }
+  }
+  @keyframes introPop{
+    from{ opacity:0; transform:scale(.7); }
+    to{ opacity:1; transform:scale(1); }
+  }
+  .intro-title{
+    font-size:16px; font-weight:800; color:var(--text);
+    letter-spacing:.5px;
+    opacity:0;
+    animation: introFadeUp .5s ease .15s both;
+  }
+  .intro-sub{
+    font-size:11.5px; color:var(--muted); font-weight:600;
+    display:flex; align-items:center; gap:8px;
+    opacity:0;
+    animation: introFadeUp .5s ease .3s both;
+  }
+  @keyframes introFadeUp{
+    from{ opacity:0; transform:translateY(8px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+  .intro-dots{ display:flex; gap:5px; }
+  .intro-dots span{
+    width:6px; height:6px; border-radius:50%; background:var(--gold);
+    animation: introDotBounce 1.1s ease-in-out infinite;
+  }
+  .intro-dots span:nth-child(2){ animation-delay:.15s; }
+  .intro-dots span:nth-child(3){ animation-delay:.3s; }
+  @keyframes introDotBounce{
+    0%,80%,100%{ opacity:.3; transform:translateY(0); }
+    40%{ opacity:1; transform:translateY(-3px); }
+  }
+
   @keyframes fadeSlideIn{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:translateY(0);} }
   .kpi{ animation: fadeSlideIn .35s ease both; }
   .kpi:nth-child(1){ animation-delay:.02s; } .kpi:nth-child(2){ animation-delay:.05s; }
@@ -363,21 +438,131 @@
   .kpi:nth-child(7){ animation-delay:.20s; } .kpi:nth-child(8){ animation-delay:.23s; }
   tbody tr{ animation: fadeSlideIn .25s ease both; }
 
-  body.light{
+  /* ===== Theme: Light (مصلّحة بالكامل) ===== */
+  body.theme-light{
     --bg: #eef1f8;
     --panel: #ffffff;
     --panel-alt: #f3f5fa;
     --border: #dde3ef;
+    --border-soft: #e4e9f2;
     --text: #1c2536;
     --muted: #6b7688;
-    --panel-glass: rgba(255,255,255,0.66);
-    background: radial-gradient(1200px 600px at 85% -10%, #dce6fb 0%, transparent 60%), var(--bg);
+    --detail: #8791a3;
+    --ops-color: #55627a;
+    --track: #e3e8f2;
+    --gold: #c9820f;
+    --green: #1f9e5c;
+    --red: #d8433f;
+    --blue: #2f6fd8;
+    --purple: #7c4fd8;
+    --teal: #148f80;
+    --panel-glass: rgba(255,255,255,0.72);
+    --bg-radial: #dce6fb;
+    --btn-hover: #e7ecf6;
+    --primary-hover: #b3730d;
+    --logo-ink: #2a1c00;
+    --shimmer: rgba(20,30,60,0.05);
+    --hover-row: rgba(20,30,60,0.03);
   }
-  body.light tbody tr:hover{ background: rgba(0,0,0,0.025); }
-  body.light .logo-badge{ color:#2a1c00; }
+  body.theme-light .logo-badge{ color:#2a1c00; }
+  body.theme-light .savings-val{ color: var(--gold); }
+  body.theme-light .kpi{ box-shadow: 0 2px 10px rgba(30,40,80,0.05); }
+  body.theme-light .hover-tip{ box-shadow:0 8px 22px rgba(30,40,80,.14); }
+  body.theme-light .modal-card,
+  body.theme-light .toast{ box-shadow: 0 12px 34px rgba(30,40,80,.14); }
+
+  /* ===== Theme: Ocean (بحري أزرق/تركواز) ===== */
+  body.theme-ocean{
+    --bg: #071925;
+    --panel: #0c2433;
+    --panel-alt: #0f2c3e;
+    --border: #1b3d52;
+    --border-soft: #163647;
+    --text: #e7f5f7;
+    --muted: #7fa8b6;
+    --detail: #6b95a3;
+    --ops-color: #8fc2cf;
+    --track: #163244;
+    --gold: #3fc8d0;
+    --green: #34c77b;
+    --red: #ef6b6b;
+    --blue: #4fb4f0;
+    --purple: #6fb8f0;
+    --teal: #5ed6c7;
+    --panel-glass: rgba(12,36,51,0.66);
+    --bg-radial: #0f3a52;
+    --btn-hover: #163a4e;
+    --primary-hover: #33aeb5;
+    --logo-ink: #032025;
+    --shimmer: rgba(120,220,230,0.06);
+    --hover-row: rgba(120,220,230,0.035);
+  }
+
+  /* ===== Theme: Royal (بنفسجي/جولد) ===== */
+  body.theme-royal{
+    --bg: #140f24;
+    --panel: #1d1633;
+    --panel-alt: #241b3f;
+    --border: #372a56;
+    --border-soft: #2c2246;
+    --text: #f1ecfb;
+    --muted: #a495c4;
+    --detail: #8d7dae;
+    --ops-color: #c3b3ea;
+    --track: #2a2148;
+    --gold: #f0a93a;
+    --green: #34c77b;
+    --red: #ef5b5b;
+    --blue: #7b8ff0;
+    --purple: #b98af5;
+    --teal: #5ed6c7;
+    --panel-glass: rgba(29,22,51,0.66);
+    --bg-radial: #33224f;
+    --btn-hover: #2a2049;
+    --primary-hover: #e59a28;
+    --logo-ink: #241900;
+    --shimmer: rgba(200,160,255,0.07);
+    --hover-row: rgba(200,160,255,0.04);
+  }
+
+  /* ===== Theme: Emerald (أخضر زمردي) ===== */
+  body.theme-emerald{
+    --bg: #0a1712;
+    --panel: #0f231b;
+    --panel-alt: #122b21;
+    --border: #204636;
+    --border-soft: #1b3b2d;
+    --text: #eaf6ef;
+    --muted: #85b3a0;
+    --detail: #6fa48f;
+    --ops-color: #8fd3b8;
+    --track: #163a2c;
+    --gold: #e0b23c;
+    --green: #2fd68f;
+    --red: #ef6b6b;
+    --blue: #4f9ff0;
+    --purple: #9b6ff0;
+    --teal: #38d6b6;
+    --panel-glass: rgba(15,35,27,0.66);
+    --bg-radial: #124a34;
+    --btn-hover: #163b2c;
+    --primary-hover: #c99a2f;
+    --logo-ink: #142a00;
+    --shimmer: rgba(120,230,180,0.06);
+    --hover-row: rgba(120,230,180,0.035);
+  }
 </style>
 </head>
 <body>
+
+  <div id="introOverlay">
+    <div class="intro-badge">OS</div>
+    <div class="intro-title">OCEAN SHIP PROCUREMENT SAVING</div>
+    <div class="intro-sub">
+      <span>جارِ تجهيز الداشبورد</span>
+      <span class="intro-dots"><span></span><span></span><span></span></span>
+    </div>
+  </div>
 
   <div class="header">
     <div class="title-block">
@@ -392,7 +577,13 @@
       <button class="btn" id="exportCsvBtn">⬇ تصدير CSV</button>
       <button class="btn" id="exportPdfBtn">🖨 طباعة / PDF</button>
       <button class="btn" id="refreshBtn">↻ تحديث</button>
-      <button class="btn" id="themeToggleBtn">🌙 الوضع الليلي</button>
+      <select class="theme-select" id="themeSelect" title="اختر الثيم">
+        <option value="dark">🌙 دارك (افتراضي)</option>
+        <option value="light">☀️ لايت</option>
+        <option value="ocean">🌊 بحري</option>
+        <option value="royal">👑 بنفسجي/جولد</option>
+        <option value="emerald">💚 أخضر زمردي</option>
+      </select>
       <button class="btn" id="soundToggleBtn">🔔 صوت الإنجاز</button>
       <button class="btn" id="addSourceBtn">🔗 ربط شهر جديد</button>
       <button class="btn primary" id="addOrderBtn">＋ فتح الشيت</button>
@@ -456,7 +647,7 @@
     <div class="kpi gauge">
       <div class="gauge-ring">
         <svg width="78" height="78">
-          <circle cx="39" cy="39" r="33" fill="none" stroke="#1c2740" stroke-width="8"/>
+          <circle cx="39" cy="39" r="33" fill="none" stroke="var(--track)" stroke-width="8"/>
           <circle cx="39" cy="39" r="33" fill="none" stroke="var(--gold)" stroke-width="8"
             stroke-linecap="round" id="gaugeCircle" stroke-dasharray="207" stroke-dashoffset="207"/>
         </svg>
@@ -573,7 +764,13 @@
     {eta:"2026-07-18", ops:"642095", vessel:"MATARI",    savings:8150.00},
   ];
 
+  function getCSSVar(name){
+    return getComputedStyle(document.body).getPropertyValue(name).trim() || '#f0a93a';
+  }
+
   const TARGET_AVG = 5000;
+  const TOTAL_TARGET_ALL = 3600000;
+  const TOTAL_TARGET_MONTH = 300000;
   const arMonths = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
   const MONTH_ABBR = {jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12};
   const fmtMoney = n => "£" + (n||0).toLocaleString("en-GB", {minimumFractionDigits:2, maximumFractionDigits:2});
@@ -809,8 +1006,12 @@
 
     document.getElementById("kpiCount").textContent = scopeRows.length;
     document.getElementById("kpiCountDetail").textContent = new Set(scopeRows.map(r=>r.vessel)).size + " مركب فريد";
+    const totalTarget = monthFilter.value ? TOTAL_TARGET_MONTH : TOTAL_TARGET_ALL;
+    const totalPct = totalTarget ? Math.round((scopeTotal/totalTarget)*100) : 0;
     document.getElementById("kpiTotal").textContent = fmtMoney(scopeTotal);
-    document.getElementById("kpiTotalDetail").textContent = monthFilter.value ? arMonthLabel(monthFilter.value) : "كل الشهور";
+    document.getElementById("kpiTotalDetail").textContent =
+      (monthFilter.value ? arMonthLabel(monthFilter.value) : "كل الشهور") +
+      " · تارجت " + fmtMoney(totalTarget) + " · " + totalPct + "%";
     document.getElementById("kpiAvg").textContent = fmtMoney(scopeAvg);
     document.getElementById("kpiTop").textContent = scopeTop ? scopeTop.vessel : "-";
     document.getElementById("kpiTopDetail").textContent = scopeTop ? (fmtMoney(scopeTop.savings) + " · " + fmtDate(scopeTop.eta)) : "لا توجد بيانات";
@@ -841,13 +1042,14 @@
       });
       const pathD = pts.map((p,i)=> (i===0?"M":"L")+p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
       const areaD = pathD + ` L${pts[pts.length-1][0].toFixed(1)},${h} L${pts[0][0].toFixed(1)},${h} Z`;
+      const goldNow = getCSSVar('--gold');
       svg.innerHTML = `
         <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#f0a93a" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#f0a93a" stop-opacity="0"/>
+          <stop offset="0%" stop-color="${goldNow}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${goldNow}" stop-opacity="0"/>
         </linearGradient></defs>
         <path d="${areaD}" fill="url(#sg)" stroke="none"/>
-        <path d="${pathD}" fill="none" stroke="#f0a93a" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="${pathD}" fill="none" stroke="${goldNow}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
       `;
       const g = scopeCum.length>1 ? ((scopeCum[scopeCum.length-1]-scopeCum[0])/scopeCum[0]*100) : 0;
       document.getElementById("kpiTrendPct").textContent = (g>=0?"+":"") + Math.round(g) + "%";
@@ -871,7 +1073,7 @@
         </div>
       `).join("");
     } else {
-      document.getElementById("rankList").innerHTML = `<div class="detail" style="color:#5f6b82;">لا توجد بيانات لهذا الشهر</div>`;
+      document.getElementById("rankList").innerHTML = `<div class="detail" style="color:var(--detail);">لا توجد بيانات لهذا الشهر</div>`;
     }
 
     updateMoM();
@@ -901,7 +1103,9 @@
     const w = 220, h = 64, pad = 6, baseY = 50;
     const gap = users.length ? (w - 2*pad) / users.length : 0;
     const barW = Math.min(gap * 0.5, 34);
-    let bars = `<line x1="${pad}" y1="${baseY}" x2="${w-pad}" y2="${baseY}" stroke="rgba(255,255,255,.12)" stroke-width="1"/>`;
+    const axisColor = getCSSVar('--border-soft');
+    const labelColor = getCSSVar('--detail');
+    let bars = `<line x1="${pad}" y1="${baseY}" x2="${w-pad}" y2="${baseY}" stroke="${axisColor}" stroke-width="1"/>`;
     users.forEach((u,i)=>{
       const avg = avgs[i];
       const barH = maxAvg ? Math.max((avg/maxAvg) * (baseY - 14), 3) : 3;
@@ -911,7 +1115,7 @@
       const color = getUserColor(u);
       bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${barH.toFixed(1)}" rx="4" fill="${color}"><title>${u}: ${fmtMoney(avg)} متوسط</title></rect>`;
       bars += `<text x="${cx.toFixed(1)}" y="${(y-5).toFixed(1)}" font-size="9" font-weight="700" fill="${color}" text-anchor="middle">${fmtMoneyShort(avg)}</text>`;
-      bars += `<text x="${cx.toFixed(1)}" y="${(baseY+11).toFixed(1)}" font-size="8" font-weight="600" fill="#8e9ab3" text-anchor="middle">${shortUserLabel(u)}</text>`;
+      bars += `<text x="${cx.toFixed(1)}" y="${(baseY+11).toFixed(1)}" font-size="8" font-weight="600" fill="${labelColor}" text-anchor="middle">${shortUserLabel(u)}</text>`;
     });
     chartSvg.innerHTML = bars;
 
@@ -1004,11 +1208,16 @@
     URL.revokeObjectURL(url);
   }
 
+  const introOverlay = document.getElementById("introOverlay");
+  let introShownOnce = false;
   async function init(){
     const syncDot = document.getElementById("syncDot");
     const syncText = document.getElementById("syncText");
     syncDot.className = "sync-dot";
     syncText.textContent = "جارِ تحميل البيانات من الشيت مباشرة...";
+
+    const introStart = Date.now();
+    const MIN_INTRO_MS = 650; // حد أدنى بسيط عشان الانترو ميومضش بسرعة
 
     const result = await loadData();
     rows = result.data.map((r,i) => ({...r, idx:i}));
@@ -1023,6 +1232,13 @@
 
     populateFilters();
     render();
+
+    if(!introShownOnce){
+      introShownOnce = true;
+      const elapsed = Date.now() - introStart;
+      const wait = Math.max(0, MIN_INTRO_MS - elapsed);
+      setTimeout(() => introOverlay.classList.add("hide"), wait);
+    }
   }
 
   async function addMonthSource(){
@@ -1159,14 +1375,20 @@
   document.getElementById("addSourceBtn").addEventListener("click", addMonthSource);
   document.getElementById("addOrderBtn").addEventListener("click", () => window.open(SHEET_EDIT_URL, "_blank"));
 
-  const themeBtn = document.getElementById("themeToggleBtn");
-  let isLight = false;
-  function applyTheme(){
-    document.body.classList.toggle("light", isLight);
-    themeBtn.textContent = isLight ? "🌙 الوضع الليلي" : "☀️ الوضع النهاري";
+  const THEME_CLASSES = ["theme-light","theme-ocean","theme-royal","theme-emerald"];
+  const themeSelect = document.getElementById("themeSelect");
+  function applyTheme(name, skipRerender){
+    document.body.classList.remove(...THEME_CLASSES);
+    if(name && name !== "dark") document.body.classList.add("theme-" + name);
+    themeSelect.value = name || "dark";
+    localStorage.setItem('psd_theme', name || "dark");
+    if(!skipRerender && typeof render === "function" && rows && rows.length){
+      // إعادة رسم العناصر اللي بتتلوّن ديناميكيًا (السباركلاين وتشارت المستخدمين)
+      render();
+    }
   }
-  themeBtn.addEventListener("click", () => { isLight = !isLight; applyTheme(); });
-  applyTheme();
+  themeSelect.addEventListener("change", () => applyTheme(themeSelect.value));
+  applyTheme(localStorage.getItem('psd_theme') || "dark", true);
 
   const AUTO_REFRESH_MS = 7 * 60 * 1000;
   let isRefreshing = false;
