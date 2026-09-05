@@ -8,29 +8,29 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg: #0b1220;
-    --panel: #121b2e;
-    --panel-alt: #16213a;
-    --border: #24304a;
-    --border-soft: #1b2740;
-    --text: #e9eef7;
+    --bg: #0a0f1c;
+    --panel: #111a2c;
+    --panel-alt: #16223a;
+    --border: #223050;
+    --border-soft: #1a2740;
+    --text: #eef2fa;
     --muted: #8b96ab;
-    --detail: #7686a3;
-    --ops-color: #9fb0c9;
+    --detail: #6f7d9c;
+    --ops-color: #a7b6d4;
     --track: #1c2740;
-    --gold: #f0a93a;
-    --green: #34c77b;
-    --red: #ef5b5b;
-    --blue: #4f8ff0;
-    --purple: #9b6ff0;
-    --teal: #5ed6c7;
-    --panel-glass: rgba(18,27,46,0.62);
-    --bg-radial: #182644;
-    --btn-hover: #1c2b48;
-    --primary-hover: #e59a28;
-    --logo-ink: #1a1200;
-    --shimmer: rgba(255,255,255,0.07);
-    --hover-row: rgba(255,255,255,0.035);
+    --gold: #f2b043;
+    --green: #2ecc71;
+    --red: #ef6259;
+    --blue: #5b93f5;
+    --purple: #7c5cd9;
+    --teal: #4fd8c7;
+    --panel-glass: rgba(17,26,44,0.65);
+    --bg-radial: #1c2d55;
+    --btn-hover: #1d2c4a;
+    --primary-hover: #d99a2e;
+    --logo-ink: #1c1400;
+    --shimmer: rgba(255,255,255,0.06);
+    --hover-row: rgba(255,255,255,0.032);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   body{
@@ -58,15 +58,15 @@
   .header .title-block{ display:flex; align-items:center; gap:12px; }
   .logo-badge{
     width:38px; height:38px; border-radius:10px;
-    background: linear-gradient(135deg, var(--gold), #c9791f);
+    background: linear-gradient(135deg, var(--gold), var(--primary-hover));
     display:flex; align-items:center; justify-content:center;
     font-weight:900; color:var(--logo-ink); font-size:15px;
     position:relative;
     animation: beaconPulse 3.4s ease-in-out infinite;
   }
   @keyframes beaconPulse{
-    0%,100%{ box-shadow: 0 0 0 0 rgba(240,169,58,0); }
-    50%{ box-shadow: 0 0 0 6px rgba(240,169,58,0.16), 0 0 16px 2px rgba(240,169,58,0.35); }
+    0%,100%{ box-shadow: 0 0 0 0 color-mix(in srgb, var(--gold) 0%, transparent); }
+    50%{ box-shadow: 0 0 0 6px color-mix(in srgb, var(--gold) 16%, transparent), 0 0 16px 2px color-mix(in srgb, var(--gold) 35%, transparent); }
   }
   .title-block h1{ font-size:17px; font-weight:800; display:flex; align-items:center; }
   .title-link{ color:var(--text); text-decoration:none; transition:.15s; display:inline-flex; align-items:center; }
@@ -77,13 +77,13 @@
     border-radius:50%;
     background: var(--gold);
     margin-inline-start:8px;
-    box-shadow: 0 0 6px 1px rgba(240,169,58,0.55);
+    box-shadow: 0 0 6px 1px color-mix(in srgb, var(--gold) 55%, transparent);
     animation: titleBeaconPulse 1.8s ease-in-out infinite;
     flex-shrink:0;
   }
   @keyframes titleBeaconPulse{
-    0%,100%{ opacity:1; box-shadow: 0 0 6px 1px rgba(240,169,58,0.55); }
-    50%{ opacity:.55; box-shadow: 0 0 3px 0px rgba(240,169,58,0.25); }
+    0%,100%{ opacity:1; box-shadow: 0 0 6px 1px color-mix(in srgb, var(--gold) 55%, transparent); }
+    50%{ opacity:.55; box-shadow: 0 0 3px 0px color-mix(in srgb, var(--gold) 25%, transparent); }
   }
   .title-block .sub{ font-size:11px; color:var(--muted); font-weight:500; margin-top:2px; }
   .header-right{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
@@ -106,7 +106,7 @@
     transition: .15s;
   }
   .btn:hover{ background:var(--btn-hover); }
-  .btn.primary{ background: var(--gold); color:#241900; border-color: var(--gold); }
+  .btn.primary{ background: var(--gold); color:var(--logo-ink); border-color: var(--gold); }
   .btn.primary:hover{ background:var(--primary-hover); }
   .theme-select{
     background: var(--panel-alt);
@@ -144,28 +144,51 @@
     backdrop-filter: blur(14px) saturate(160%);
     -webkit-backdrop-filter: blur(14px) saturate(160%);
     border: 1px solid var(--border);
-    border-top: 3px solid var(--kpi-color, var(--gold));
     border-radius: 14px;
-    padding: 16px 18px;
+    padding: 14px 18px 16px;
     position:relative;
     overflow:hidden;
+    display:flex; flex-direction:column;
+    transition: background .25s ease, border-color .25s ease;
   }
-  .kpi .value{ font-size: 26px; font-weight:900; line-height:1; }
-  .kpi .label{ font-size:12px; color:var(--muted); font-weight:600; margin-top:8px; }
-  .kpi .detail{ font-size:10.5px; color:var(--detail); margin-top:4px; font-weight:500; }
+  .kpi.tint{
+    background: linear-gradient(160deg, color-mix(in srgb, var(--kpi-color) 16%, var(--panel)) 0%, var(--panel) 130%);
+    border-color: color-mix(in srgb, var(--kpi-color) 32%, var(--border));
+  }
+  .kpi-head{
+    display:flex; align-items:center; gap:8px;
+    margin-bottom:12px;
+  }
+  .kpi-icon{
+    width:26px; height:26px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    background: color-mix(in srgb, var(--kpi-color) 18%, transparent);
+    color: var(--kpi-color);
+    font-size:13px; font-weight:800; line-height:1;
+    flex-shrink:0;
+  }
+  .kpi.tint .kpi-icon{ background: color-mix(in srgb, var(--kpi-color) 30%, transparent); }
+  .kpi-label{ font-size:11.5px; color:var(--muted); font-weight:700; line-height:1.3; }
+  .kpi .value{
+    font-size: 24px; font-weight:900; line-height:1.2;
+    overflow-wrap:anywhere; word-break:break-word;
+  }
+  .kpi .value.value-text{ font-size:16px; line-height:1.35; }
+  .kpi .detail{ font-size:10.5px; color:var(--detail); margin-top:6px; font-weight:500; }
 
   .kpi.trend{ grid-column: span 2; }
   .kpi.trend .spark{ margin-top:8px; }
   .kpi.trend .top-label{ font-size:11px; color:var(--muted); font-weight:600; display:flex; justify-content:space-between; align-items:baseline;}
   .kpi.trend .top-label b{ color: var(--gold); font-size:22px; font-weight:900; }
 
-  .kpi.gauge{ grid-column: span 2; display:flex; align-items:center; gap:14px; }
+  .kpi.gauge{ grid-column: span 2; flex-direction:row; align-items:center; gap:14px; }
   .gauge-ring{ position:relative; width:78px; height:78px; flex-shrink:0; }
   .gauge-ring svg{ transform: rotate(-90deg); }
   .gauge-ring .pct{
     position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
     font-size:15px; font-weight:800;
   }
+  .gauge-text{ display:flex; flex-direction:column; }
   .gauge-text .label{ font-size:12px; color:var(--muted); font-weight:600; }
   .gauge-text .value{ font-size:15px; font-weight:800; margin-top:4px; }
   .gauge-text .detail{ font-size:10.5px; color:var(--detail); margin-top:3px; }
@@ -233,17 +256,17 @@
     display:inline-block; font-size:10.5px; font-weight:800;
     padding: 4px 10px; border-radius:20px; white-space:nowrap;
   }
-  .pill.above{ background: rgba(52,199,123,.14); color:var(--green); }
-  .pill.below{ background: rgba(79,143,240,.14); color:var(--blue); }
-  .pill.excellent{ background: rgba(240,169,58,.18); color:var(--gold); }
-  .pill.none{ background: rgba(94,214,199,.14); color:var(--teal); }
-  .pill.finished{ background: rgba(52,199,123,.14); color:var(--green); }
-  .pill.notfinished{ background: rgba(239,91,91,.14); color:var(--red); }
+  .pill.above{ background: color-mix(in srgb, var(--green) 15%, transparent); color:var(--green); }
+  .pill.below{ background: color-mix(in srgb, var(--blue) 15%, transparent); color:var(--blue); }
+  .pill.excellent{ background: color-mix(in srgb, var(--gold) 18%, transparent); color:var(--gold); }
+  .pill.none{ background: color-mix(in srgb, var(--teal) 15%, transparent); color:var(--teal); }
+  .pill.finished{ background: color-mix(in srgb, var(--green) 15%, transparent); color:var(--green); }
+  .pill.notfinished{ background: color-mix(in srgb, var(--red) 15%, transparent); color:var(--red); }
   .ops-code{ color:var(--ops-color); font-weight:700; }
   .row-num{ color:var(--detail); font-weight:700; text-align:center; position:relative; }
   tbody tr{ cursor:pointer; }
-  tbody tr.row-finished{ box-shadow: inset 3px 0 0 var(--green); background: linear-gradient(90deg, rgba(52,199,123,.05), transparent 55%); }
-  tbody tr.row-notfinished{ box-shadow: inset 3px 0 0 var(--red); background: linear-gradient(90deg, rgba(239,91,91,.04), transparent 55%); }
+  tbody tr.row-finished{ box-shadow: inset 3px 0 0 var(--green); background: linear-gradient(90deg, color-mix(in srgb, var(--green) 6%, transparent), transparent 55%); }
+  tbody tr.row-notfinished{ box-shadow: inset 3px 0 0 var(--red); background: linear-gradient(90deg, color-mix(in srgb, var(--red) 5%, transparent), transparent 55%); }
 
   tbody tr{
     position: relative;
@@ -278,8 +301,8 @@
     animation: rowBeaconPulse 1.1s ease-in-out infinite;
   }
   @keyframes rowBeaconPulse{
-    0%,100%{ box-shadow: 0 0 0 0 rgba(240,169,58,0.45); }
-    50%{ box-shadow: 0 0 0 5px rgba(240,169,58,0); }
+    0%,100%{ box-shadow: 0 0 0 0 color-mix(in srgb, var(--gold) 45%, transparent); }
+    50%{ box-shadow: 0 0 0 5px color-mix(in srgb, var(--gold) 0%, transparent); }
   }
   .eta-date{ color:var(--muted); font-weight:700; }
   .empty-row td{ text-align:center; color:var(--muted); padding:26px 16px; font-size:13px; }
@@ -302,14 +325,14 @@
   .rank-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
   .rank-top .name{ font-size:12.5px; font-weight:800; display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
   .captain-badge{
-    font-size:9.5px; font-weight:800; color:#241900; background: linear-gradient(135deg, var(--gold), #ffcf75);
+    font-size:9.5px; font-weight:800; color:var(--logo-ink); background: linear-gradient(135deg, var(--gold), var(--primary-hover));
     padding:2px 8px; border-radius:20px; white-space:nowrap;
   }
   .rank-top .num{ width:18px; height:18px; border-radius:5px; background:var(--panel-alt); border:1px solid var(--border);
     display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--muted); font-weight:800; }
   .rank-top .amt{ font-size:12px; font-weight:800; color:var(--gold); }
   .bar-track{ height:6px; background:var(--panel-alt); border-radius:4px; overflow:hidden; }
-  .bar-fill{ height:100%; border-radius:4px; background: linear-gradient(90deg, var(--gold), #ffcf75); }
+  .bar-fill{ height:100%; border-radius:4px; background: linear-gradient(90deg, var(--primary-hover), var(--gold)); }
 
   @media (max-width: 1100px){
     .main{ grid-template-columns: 1fr; }
@@ -381,53 +404,96 @@
   /* ===== Intro Splash ===== */
   #introOverlay{
     position:fixed; inset:0; z-index:5000;
-    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:14px;
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px;
     background: radial-gradient(1200px 600px at 85% -10%, var(--bg-radial) 0%, transparent 60%), var(--bg);
-    transition: opacity .45s ease, visibility .45s ease;
+    transition: opacity .5s ease, visibility .5s ease;
+    overflow:hidden;
+  }
+  #introOverlay::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      radial-gradient(500px 260px at 12% 18%, color-mix(in srgb, var(--gold) 10%, transparent) 0%, transparent 70%),
+      radial-gradient(600px 320px at 88% 85%, color-mix(in srgb, var(--teal) 8%, transparent) 0%, transparent 70%);
+    animation: introBgDrift 6s ease-in-out infinite alternate;
+    pointer-events:none;
+  }
+  @keyframes introBgDrift{
+    from{ opacity:.6; transform: scale(1) translate(0,0); }
+    to{ opacity:1; transform: scale(1.06) translate(-1%, 1%); }
   }
   #introOverlay.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+
+  .intro-ring-wrap{
+    position:relative;
+    width:88px; height:88px;
+    display:flex; align-items:center; justify-content:center;
+    animation: introPop .55s cubic-bezier(.2,.9,.25,1.2) both;
+  }
+  .intro-ring{
+    position:absolute; inset:0;
+    border-radius:50%;
+    background: conic-gradient(from 0deg, transparent 0%, var(--gold) 18%, transparent 40%, transparent 60%, var(--teal) 78%, transparent 100%);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    animation: introRingSpin 2.4s linear infinite;
+  }
+  @keyframes introRingSpin{ to{ transform: rotate(360deg); } }
   .intro-badge{
+    position:relative;
     width:60px; height:60px; border-radius:16px;
-    background: linear-gradient(135deg, var(--gold), #c9791f);
+    background: linear-gradient(135deg, var(--gold), var(--primary-hover));
     display:flex; align-items:center; justify-content:center;
     font-weight:900; color:var(--logo-ink); font-size:22px;
-    box-shadow: 0 0 0 0 rgba(240,169,58,0.4);
-    animation: introBadgePulse 1.6s ease-in-out infinite, introPop .5s ease both;
+    letter-spacing:.5px;
+    box-shadow: 0 8px 22px -6px color-mix(in srgb, var(--gold) 55%, transparent);
+    animation: introBadgeBreathe 2.4s ease-in-out infinite;
   }
-  @keyframes introBadgePulse{
-    0%,100%{ box-shadow: 0 0 0 0 rgba(240,169,58,0.35); }
-    50%{ box-shadow: 0 0 0 12px rgba(240,169,58,0), 0 0 26px 4px rgba(240,169,58,0.3); }
+  @keyframes introBadgeBreathe{
+    0%,100%{ transform: scale(1); }
+    50%{ transform: scale(1.05); }
   }
   @keyframes introPop{
-    from{ opacity:0; transform:scale(.7); }
-    to{ opacity:1; transform:scale(1); }
+    from{ opacity:0; transform:scale(.6) rotate(-8deg); }
+    to{ opacity:1; transform:scale(1) rotate(0deg); }
   }
   .intro-title{
-    font-size:16px; font-weight:800; color:var(--text);
+    font-size:17px; font-weight:800;
     letter-spacing:.5px;
+    background: linear-gradient(90deg, var(--text) 0%, var(--gold) 50%, var(--text) 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
     opacity:0;
-    animation: introFadeUp .5s ease .15s both;
+    animation: introFadeUp .6s ease .1s both, introShine 2.6s linear .6s infinite;
+  }
+  @keyframes introShine{
+    to{ background-position: -220% center; }
   }
   .intro-sub{
     font-size:11.5px; color:var(--muted); font-weight:600;
-    display:flex; align-items:center; gap:8px;
     opacity:0;
-    animation: introFadeUp .5s ease .3s both;
+    animation: introFadeUp .5s ease .28s both;
   }
   @keyframes introFadeUp{
     from{ opacity:0; transform:translateY(8px); }
     to{ opacity:1; transform:translateY(0); }
   }
-  .intro-dots{ display:flex; gap:5px; }
-  .intro-dots span{
-    width:6px; height:6px; border-radius:50%; background:var(--gold);
-    animation: introDotBounce 1.1s ease-in-out infinite;
+  .intro-progress{
+    width:150px; height:3px; border-radius:3px;
+    background: var(--track);
+    overflow:hidden;
+    opacity:0;
+    animation: introFadeUp .5s ease .4s both;
   }
-  .intro-dots span:nth-child(2){ animation-delay:.15s; }
-  .intro-dots span:nth-child(3){ animation-delay:.3s; }
-  @keyframes introDotBounce{
-    0%,80%,100%{ opacity:.3; transform:translateY(0); }
-    40%{ opacity:1; transform:translateY(-3px); }
+  .intro-progress::after{
+    content:"";
+    display:block; height:100%; width:40%; border-radius:3px;
+    background: linear-gradient(90deg, transparent, var(--gold), var(--teal), transparent);
+    animation: introProgressSlide 1.3s ease-in-out infinite;
+  }
+  @keyframes introProgressSlide{
+    0%{ transform: translateX(-120%); }
+    100%{ transform: translateX(280%); }
   }
 
   @keyframes fadeSlideIn{ from{ opacity:0; transform:translateY(6px);} to{ opacity:1; transform:translateY(0);} }
@@ -438,130 +504,134 @@
   .kpi:nth-child(7){ animation-delay:.20s; } .kpi:nth-child(8){ animation-delay:.23s; }
   tbody tr{ animation: fadeSlideIn .25s ease both; }
 
-  /* ===== Theme: Light (مصلّحة بالكامل) ===== */
+  /* ===== Theme: Light — ورقي نضيف، تباين مريح، جولد غامق واضح ===== */
   body.theme-light{
-    --bg: #eef1f8;
+    --bg: #f3f5fa;
     --panel: #ffffff;
-    --panel-alt: #f3f5fa;
-    --border: #dde3ef;
-    --border-soft: #e4e9f2;
-    --text: #1c2536;
-    --muted: #6b7688;
-    --detail: #8791a3;
-    --ops-color: #55627a;
-    --track: #e3e8f2;
-    --gold: #c9820f;
-    --green: #1f9e5c;
-    --red: #d8433f;
-    --blue: #2f6fd8;
-    --purple: #7c4fd8;
-    --teal: #148f80;
-    --panel-glass: rgba(255,255,255,0.72);
-    --bg-radial: #dce6fb;
-    --btn-hover: #e7ecf6;
-    --primary-hover: #b3730d;
-    --logo-ink: #2a1c00;
-    --shimmer: rgba(20,30,60,0.05);
-    --hover-row: rgba(20,30,60,0.03);
+    --panel-alt: #f6f8fc;
+    --border: #e2e7f0;
+    --border-soft: #ebeef5;
+    --text: #1b2333;
+    --muted: #667089;
+    --detail: #8992a8;
+    --ops-color: #47526c;
+    --track: #e7ebf4;
+    --gold: #b3760b;
+    --green: #1f9d63;
+    --red: #d64b4b;
+    --blue: #3568d4;
+    --purple: #7c56d6;
+    --teal: #1b8f83;
+    --panel-glass: rgba(255,255,255,0.78);
+    --bg-radial: #dfe7fa;
+    --btn-hover: #eaeef7;
+    --primary-hover: #966109;
+    --logo-ink: #2c1c00;
+    --shimmer: rgba(20,30,60,0.045);
+    --hover-row: rgba(20,30,60,0.028);
   }
-  body.theme-light .logo-badge{ color:#2a1c00; }
+  body.theme-light .logo-badge{ color:var(--logo-ink); }
   body.theme-light .savings-val{ color: var(--gold); }
-  body.theme-light .kpi{ box-shadow: 0 2px 10px rgba(30,40,80,0.05); }
+  body.theme-light .kpi,
+  body.theme-light .header,
+  body.theme-light .sync-bar,
+  body.theme-light .chart-card{ box-shadow: 0 2px 12px rgba(30,40,80,0.06); }
   body.theme-light .hover-tip{ box-shadow:0 8px 22px rgba(30,40,80,.14); }
   body.theme-light .modal-card,
-  body.theme-light .toast{ box-shadow: 0 12px 34px rgba(30,40,80,.14); }
+  body.theme-light .toast{ box-shadow: 0 12px 34px rgba(30,40,80,.16); }
 
-  /* ===== Theme: Ocean (بحري أزرق/تركواز) ===== */
+  /* ===== Theme: Ocean — أزرق بترولي متدرّج مع هايلايت كهرماني دافئ ===== */
   body.theme-ocean{
-    --bg: #071925;
-    --panel: #0c2433;
-    --panel-alt: #0f2c3e;
-    --border: #1b3d52;
-    --border-soft: #163647;
-    --text: #e7f5f7;
-    --muted: #7fa8b6;
-    --detail: #6b95a3;
-    --ops-color: #8fc2cf;
-    --track: #163244;
-    --gold: #3fc8d0;
-    --green: #34c77b;
-    --red: #ef6b6b;
-    --blue: #4fb4f0;
-    --purple: #6fb8f0;
-    --teal: #5ed6c7;
-    --panel-glass: rgba(12,36,51,0.66);
-    --bg-radial: #0f3a52;
-    --btn-hover: #163a4e;
-    --primary-hover: #33aeb5;
-    --logo-ink: #032025;
-    --shimmer: rgba(120,220,230,0.06);
-    --hover-row: rgba(120,220,230,0.035);
-  }
-
-  /* ===== Theme: Royal (بنفسجي/جولد) ===== */
-  body.theme-royal{
-    --bg: #140f24;
-    --panel: #1d1633;
-    --panel-alt: #241b3f;
-    --border: #372a56;
-    --border-soft: #2c2246;
-    --text: #f1ecfb;
-    --muted: #a495c4;
-    --detail: #8d7dae;
-    --ops-color: #c3b3ea;
-    --track: #2a2148;
-    --gold: #f0a93a;
-    --green: #34c77b;
-    --red: #ef5b5b;
-    --blue: #7b8ff0;
-    --purple: #b98af5;
-    --teal: #5ed6c7;
-    --panel-glass: rgba(29,22,51,0.66);
-    --bg-radial: #33224f;
-    --btn-hover: #2a2049;
-    --primary-hover: #e59a28;
+    --bg: #071b26;
+    --panel: #0c2733;
+    --panel-alt: #0f2f3d;
+    --border: #1c4353;
+    --border-soft: #163947;
+    --text: #e8f5f6;
+    --muted: #82adb6;
+    --detail: #6c98a0;
+    --ops-color: #a9d2d9;
+    --track: #163542;
+    --gold: #f0b23f;
+    --green: #34cf9a;
+    --red: #f0705f;
+    --blue: #4fb8e8;
+    --purple: #6fa8dc;
+    --teal: #4fd8c9;
+    --panel-glass: rgba(12,39,51,0.68);
+    --bg-radial: #114a5c;
+    --btn-hover: #133e4c;
+    --primary-hover: #d99a2e;
     --logo-ink: #241900;
-    --shimmer: rgba(200,160,255,0.07);
-    --hover-row: rgba(200,160,255,0.04);
+    --shimmer: rgba(140,220,230,0.055);
+    --hover-row: rgba(140,220,230,0.03);
   }
 
-  /* ===== Theme: Emerald (أخضر زمردي) ===== */
+  /* ===== Theme: Royal — بنفسجي ملكي دافئ مع جولد متناسق ===== */
+  body.theme-royal{
+    --bg: #140f22;
+    --panel: #1c1631;
+    --panel-alt: #241c3d;
+    --border: #362a52;
+    --border-soft: #2b2242;
+    --text: #f2eefb;
+    --muted: #a599c4;
+    --detail: #8a7bab;
+    --ops-color: #c9b8ee;
+    --track: #291f45;
+    --gold: #ecab48;
+    --green: #3fcf8e;
+    --red: #ef6285;
+    --blue: #8b93f2;
+    --purple: #bd94f5;
+    --teal: #5ed6c7;
+    --panel-glass: rgba(28,22,49,0.68);
+    --bg-radial: #34204f;
+    --btn-hover: #291f42;
+    --primary-hover: #d4953d;
+    --logo-ink: #241900;
+    --shimmer: rgba(210,175,255,0.06);
+    --hover-row: rgba(210,175,255,0.032);
+  }
+
+  /* ===== Theme: Emerald — أخضر زمردي عميق مع جولد دافئ متناغم ===== */
   body.theme-emerald{
-    --bg: #0a1712;
-    --panel: #0f231b;
-    --panel-alt: #122b21;
-    --border: #204636;
-    --border-soft: #1b3b2d;
-    --text: #eaf6ef;
-    --muted: #85b3a0;
-    --detail: #6fa48f;
-    --ops-color: #8fd3b8;
-    --track: #163a2c;
-    --gold: #e0b23c;
-    --green: #2fd68f;
-    --red: #ef6b6b;
-    --blue: #4f9ff0;
-    --purple: #9b6ff0;
-    --teal: #38d6b6;
-    --panel-glass: rgba(15,35,27,0.66);
-    --bg-radial: #124a34;
-    --btn-hover: #163b2c;
-    --primary-hover: #c99a2f;
-    --logo-ink: #142a00;
-    --shimmer: rgba(120,230,180,0.06);
-    --hover-row: rgba(120,230,180,0.035);
+    --bg: #08160f;
+    --panel: #0e2318;
+    --panel-alt: #122b1e;
+    --border: #1f4835;
+    --border-soft: #193c2b;
+    --text: #eaf7ef;
+    --muted: #82b39c;
+    --detail: #669c85;
+    --ops-color: #9bd8bd;
+    --track: #163a29;
+    --gold: #e6b34c;
+    --green: #35d69a;
+    --red: #ef6f5f;
+    --blue: #58aee0;
+    --purple: #8db89f;
+    --teal: #3fd6b8;
+    --panel-glass: rgba(14,35,24,0.68);
+    --bg-radial: #144f36;
+    --btn-hover: #163b2b;
+    --primary-hover: #c9973d;
+    --logo-ink: #201700;
+    --shimmer: rgba(130,235,190,0.055);
+    --hover-row: rgba(130,235,190,0.03);
   }
 </style>
 </head>
 <body>
 
   <div id="introOverlay">
-    <div class="intro-badge">OS</div>
-    <div class="intro-title">OCEAN SHIP PROCUREMENT SAVING</div>
-    <div class="intro-sub">
-      <span>جارِ تجهيز الداشبورد</span>
-      <span class="intro-dots"><span></span><span></span><span></span></span>
+    <div class="intro-ring-wrap">
+      <div class="intro-ring"></div>
+      <div class="intro-badge">OS</div>
     </div>
+    <div class="intro-title">OCEAN SHIP PROCUREMENT SAVING</div>
+    <div class="intro-sub">جارِ تجهيز الداشبورد</div>
+    <div class="intro-progress"></div>
   </div>
 
   <div class="header">
@@ -596,44 +666,44 @@
   </div>
 
   <div class="kpi-row">
-    <div class="kpi" style="--kpi-color:var(--gold)">
+    <div class="kpi" style="--kpi-color:var(--blue)">
+      <div class="kpi-head"><span class="kpi-icon">#</span><span class="kpi-label">عدد الأوردرات</span></div>
       <div class="value" id="kpiCount">0</div>
-      <div class="label">عدد الأوردرات</div>
       <div class="detail" id="kpiCountDetail">-</div>
     </div>
-    <div class="kpi" style="--kpi-color:var(--green)">
+    <div class="kpi tint" style="--kpi-color:var(--gold)">
+      <div class="kpi-head"><span class="kpi-icon">£</span><span class="kpi-label">إجمالي التوفير</span></div>
       <div class="value" id="kpiTotal">£0</div>
-      <div class="label">إجمالي التوفير</div>
       <div class="detail" id="kpiTotalDetail">-</div>
     </div>
     <div class="kpi" style="--kpi-color:var(--blue)">
+      <div class="kpi-head"><span class="kpi-icon">~</span><span class="kpi-label">متوسط التوفير للأوردر</span></div>
       <div class="value" id="kpiAvg">£0</div>
-      <div class="label">متوسط التوفير للأوردر</div>
       <div class="detail">هدف: £5,000.00</div>
     </div>
     <div class="kpi" style="--kpi-color:var(--purple)">
-      <div class="value" id="kpiTop">-</div>
-      <div class="label">أعلى توفير</div>
+      <div class="kpi-head"><span class="kpi-icon">★</span><span class="kpi-label">أعلى توفير</span></div>
+      <div class="value value-text" id="kpiTop">-</div>
       <div class="detail" id="kpiTopDetail">-</div>
     </div>
-    <div class="kpi" style="--kpi-color:var(--green)">
+    <div class="kpi tint" style="--kpi-color:var(--green)">
+      <div class="kpi-head"><span class="kpi-icon">✓</span><span class="kpi-label">أوردرات أعلى من التارجت</span></div>
       <div class="value" id="kpiAbove">0</div>
-      <div class="label">أوردرات أعلى من التارجت</div>
       <div class="detail" id="kpiAboveDetail">أعلى من أو يساوي £5,000.00</div>
     </div>
-    <div class="kpi" style="--kpi-color:var(--red)">
+    <div class="kpi tint" style="--kpi-color:var(--red)">
+      <div class="kpi-head"><span class="kpi-icon">!</span><span class="kpi-label">أوردرات أقل من التارجت</span></div>
       <div class="value" id="kpiWeak">0</div>
-      <div class="label">أوردرات أقل من التارجت</div>
       <div class="detail" id="kpiWeakDetail">أقل من £5,000.00</div>
     </div>
     <div class="kpi" style="--kpi-color:var(--blue)">
+      <div class="kpi-head"><span class="kpi-icon">Δ</span><span class="kpi-label">مقارنة بالشهر السابق</span></div>
       <div class="value" id="momPct">-</div>
-      <div class="label">مقارنة بالشهر السابق</div>
       <div class="detail" id="momDetail">-</div>
     </div>
     <div class="kpi" style="--kpi-color:var(--teal); grid-column: span 2;">
-      <div class="top-label" style="font-size:11px;color:var(--muted);font-weight:600;display:flex;justify-content:space-between;align-items:baseline;">
-        <span id="kpiProcUserLabel">إجمالي توفير مستخدم المشتريات</span>
+      <div class="kpi-head" style="justify-content:space-between;">
+        <span style="display:flex; align-items:center; gap:8px;"><span class="kpi-icon">◔</span><span class="kpi-label" id="kpiProcUserLabel">إجمالي توفير مستخدم المشتريات</span></span>
         <b id="kpiProcUserAvg" style="color:var(--teal); font-size:14px; font-weight:900;"></b>
       </div>
       <div class="value" id="kpiProcUserTotal">-</div>
@@ -1310,14 +1380,16 @@
     } catch(e){}
   }
 
-  const procUserColors = ["#ffb648","#4fc3f7","#ff6f91","#7ee787","#c792ea","#4dd0e1","#ff8a65","#a5d6ff"];
+  const procUserColorsDark  = ["#ffb648","#4fc3f7","#ff6f91","#7ee787","#c792ea","#4dd0e1","#ff8a65","#a5d6ff"];
+  const procUserColorsLight = ["#b3760b","#1868b8","#c23a6b","#1f8f4e","#7c4fd6","#1a8f9c","#c05a1f","#3a5fc4"];
   function getUserColor(name){
     if(!name) return "";
+    const palette = document.body.classList.contains("theme-light") ? procUserColorsLight : procUserColorsDark;
     const idx = allProcUsers.indexOf(name);
-    if(idx !== -1) return procUserColors[idx % procUserColors.length];
+    if(idx !== -1) return palette[idx % palette.length];
     let hash = 0;
     for(let i=0;i<name.length;i++){ hash = name.charCodeAt(i) + ((hash<<5)-hash); }
-    return procUserColors[Math.abs(hash) % procUserColors.length];
+    return palette[Math.abs(hash) % palette.length];
   }
 
   const modalBackdrop = document.getElementById("modalBackdrop");
@@ -1390,7 +1462,7 @@
   themeSelect.addEventListener("change", () => applyTheme(themeSelect.value));
   applyTheme(localStorage.getItem('psd_theme') || "dark", true);
 
-  const AUTO_REFRESH_MS = 1 * 60 * 60 * 1000;
+  const AUTO_REFRESH_MS = 7 * 60 * 1000;
   let isRefreshing = false;
   setInterval(async () => {
     if(isRefreshing) return;
