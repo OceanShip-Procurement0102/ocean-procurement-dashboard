@@ -22,7 +22,7 @@
     --green: #2ecc71;
     --red: #ef6259;
     --blue: #5b93f5;
-    --purple: #7c5cd9;
+    --purple: #6a45c9;
     --teal: #4fd8c7;
     --panel-glass: rgba(17,26,44,0.65);
     --bg-radial: #1c2d55;
@@ -58,7 +58,7 @@
   .header .title-block{ display:flex; align-items:center; gap:12px; }
   .logo-badge{
     width:38px; height:38px; border-radius:10px;
-    background: linear-gradient(135deg, var(--gold), var(--primary-hover));
+    background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 88%, white 12%), var(--gold) 45%, var(--primary-hover));
     display:flex; align-items:center; justify-content:center;
     font-weight:900; color:var(--logo-ink); font-size:15px;
     position:relative;
@@ -152,8 +152,8 @@
     transition: background .25s ease, border-color .25s ease;
   }
   .kpi.tint{
-    background: linear-gradient(160deg, color-mix(in srgb, var(--kpi-color) 16%, var(--panel)) 0%, var(--panel) 130%);
-    border-color: color-mix(in srgb, var(--kpi-color) 32%, var(--border));
+    background: linear-gradient(160deg, color-mix(in srgb, var(--kpi-color) 22%, var(--panel)) 0%, var(--panel) 125%);
+    border-color: color-mix(in srgb, var(--kpi-color) 38%, var(--border));
   }
   .kpi-head{
     display:flex; align-items:center; gap:8px;
@@ -182,12 +182,23 @@
   .kpi.trend .top-label b{ color: var(--gold); font-size:22px; font-weight:900; }
 
   .kpi.gauge{ grid-column: span 2; flex-direction:row; align-items:center; gap:14px; }
-  .gauge-ring{ position:relative; width:78px; height:78px; flex-shrink:0; }
+  .gauge-visual{ position:relative; width:78px; height:78px; flex-shrink:0; }
+  .gauge-ring{ position:absolute; inset:0; }
   .gauge-ring svg{ transform: rotate(-90deg); }
   .gauge-ring .pct{
     position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
     font-size:15px; font-weight:800;
   }
+  .gauge-bar-mode{
+    display:none;
+    position:absolute; inset:0;
+    flex-direction:column; align-items:center; justify-content:center; gap:8px;
+  }
+  .gauge-bar-mode .pct{ font-size:16px; font-weight:800; }
+  .gauge-bar-mode .bar-track2{ width:64px; height:9px; border-radius:6px; background:var(--track); overflow:hidden; }
+  .gauge-bar-mode .bar-fill2{ height:100%; border-radius:6px; background: linear-gradient(90deg, var(--primary-hover), var(--gold) 60%, color-mix(in srgb, var(--gold) 88%, white 12%)); transition: width .5s ease; }
+  body.gauge-bar-style .gauge-ring{ display:none; }
+  body.gauge-bar-style .gauge-bar-mode{ display:flex; }
   .gauge-text{ display:flex; flex-direction:column; }
   .gauge-text .label{ font-size:12px; color:var(--muted); font-weight:600; }
   .gauge-text .value{ font-size:15px; font-weight:800; margin-top:4px; }
@@ -255,6 +266,7 @@
   .pill{
     display:inline-block; font-size:10.5px; font-weight:800;
     padding: 4px 10px; border-radius:20px; white-space:nowrap;
+    border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
   }
   .pill.above{ background: color-mix(in srgb, var(--green) 15%, transparent); color:var(--green); }
   .pill.below{ background: color-mix(in srgb, var(--blue) 15%, transparent); color:var(--blue); }
@@ -325,14 +337,14 @@
   .rank-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:6px; }
   .rank-top .name{ font-size:12.5px; font-weight:800; display:flex; align-items:center; gap:7px; flex-wrap:wrap; }
   .captain-badge{
-    font-size:9.5px; font-weight:800; color:var(--logo-ink); background: linear-gradient(135deg, var(--gold), var(--primary-hover));
+    font-size:9.5px; font-weight:800; color:var(--logo-ink); background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 88%, white 12%), var(--gold) 45%, var(--primary-hover));
     padding:2px 8px; border-radius:20px; white-space:nowrap;
   }
   .rank-top .num{ width:18px; height:18px; border-radius:5px; background:var(--panel-alt); border:1px solid var(--border);
     display:flex; align-items:center; justify-content:center; font-size:10px; color:var(--muted); font-weight:800; }
   .rank-top .amt{ font-size:12px; font-weight:800; color:var(--gold); }
   .bar-track{ height:6px; background:var(--panel-alt); border-radius:4px; overflow:hidden; }
-  .bar-fill{ height:100%; border-radius:4px; background: linear-gradient(90deg, var(--primary-hover), var(--gold)); }
+  .bar-fill{ height:100%; border-radius:4px; background: linear-gradient(90deg, var(--primary-hover), var(--gold) 60%, color-mix(in srgb, var(--gold) 88%, white 12%)); }
 
   @media (max-width: 1100px){
     .main{ grid-template-columns: 1fr; }
@@ -442,7 +454,7 @@
   .intro-badge{
     position:relative;
     width:60px; height:60px; border-radius:16px;
-    background: linear-gradient(135deg, var(--gold), var(--primary-hover));
+    background: linear-gradient(135deg, color-mix(in srgb, var(--gold) 88%, white 12%), var(--gold) 45%, var(--primary-hover));
     display:flex; align-items:center; justify-content:center;
     font-weight:900; color:var(--logo-ink); font-size:22px;
     letter-spacing:.5px;
@@ -504,41 +516,44 @@
   .kpi:nth-child(7){ animation-delay:.20s; } .kpi:nth-child(8){ animation-delay:.23s; }
   tbody tr{ animation: fadeSlideIn .25s ease both; }
 
-  /* ===== Theme: Light — ورقي نضيف، تباين مريح، جولد غامق واضح ===== */
+  /* ===== Theme: Light — ورقي نضيف، بوردرات واضحة، جولد غامق واضح ===== */
   body.theme-light{
-    --bg: #f3f5fa;
+    --bg: #eef1f7;
     --panel: #ffffff;
-    --panel-alt: #f6f8fc;
-    --border: #e2e7f0;
-    --border-soft: #ebeef5;
-    --text: #1b2333;
-    --muted: #667089;
-    --detail: #8992a8;
-    --ops-color: #47526c;
-    --track: #e7ebf4;
-    --gold: #b3760b;
-    --green: #1f9d63;
-    --red: #d64b4b;
-    --blue: #3568d4;
-    --purple: #7c56d6;
-    --teal: #1b8f83;
-    --panel-glass: rgba(255,255,255,0.78);
-    --bg-radial: #dfe7fa;
-    --btn-hover: #eaeef7;
-    --primary-hover: #966109;
+    --panel-alt: #f2f5fa;
+    --border: #ccd5e4;
+    --border-soft: #dde3ee;
+    --text: #182236;
+    --muted: #5c6884;
+    --detail: #808da8;
+    --ops-color: #414d6c;
+    --track: #e2e7f2;
+    --gold: #a8690a;
+    --green: #16915a;
+    --red: #d0413f;
+    --blue: #2f5fce;
+    --purple: #6a3fce;
+    --teal: #12867b;
+    --panel-glass: rgba(255,255,255,0.86);
+    --bg-radial: #dbe5fb;
+    --btn-hover: #e6ebf5;
+    --primary-hover: #8a5a08;
     --logo-ink: #2c1c00;
-    --shimmer: rgba(20,30,60,0.045);
-    --hover-row: rgba(20,30,60,0.028);
+    --shimmer: rgba(20,30,60,0.05);
+    --hover-row: rgba(20,30,60,0.032);
   }
   body.theme-light .logo-badge{ color:var(--logo-ink); }
   body.theme-light .savings-val{ color: var(--gold); }
   body.theme-light .kpi,
   body.theme-light .header,
   body.theme-light .sync-bar,
-  body.theme-light .chart-card{ box-shadow: 0 2px 12px rgba(30,40,80,0.06); }
-  body.theme-light .hover-tip{ box-shadow:0 8px 22px rgba(30,40,80,.14); }
+  body.theme-light .chart-card{ box-shadow: 0 2px 12px rgba(30,40,80,0.07); }
+  body.theme-light .hover-tip{ box-shadow:0 8px 22px rgba(30,40,80,.16); }
   body.theme-light .modal-card,
-  body.theme-light .toast{ box-shadow: 0 12px 34px rgba(30,40,80,.16); }
+  body.theme-light .toast{ box-shadow: 0 12px 34px rgba(30,40,80,.18); }
+  body.theme-light thead th{ border-bottom: 1px solid var(--border); }
+  body.theme-light .filters input, body.theme-light .filters select{ border-color: var(--border); }
+
 
   /* ===== Theme: Ocean — أزرق بترولي متدرّج مع هايلايت كهرماني دافئ ===== */
   body.theme-ocean{
@@ -567,58 +582,59 @@
     --hover-row: rgba(140,220,230,0.03);
   }
 
-  /* ===== Theme: Royal — بنفسجي ملكي دافئ مع جولد متناسق ===== */
+  /* ===== Theme: Royal — بنفسجي ملكي عميق مع جولد عتيق متناغم ===== */
   body.theme-royal{
-    --bg: #140f22;
-    --panel: #1c1631;
-    --panel-alt: #241c3d;
-    --border: #362a52;
-    --border-soft: #2b2242;
-    --text: #f2eefb;
-    --muted: #a599c4;
-    --detail: #8a7bab;
-    --ops-color: #c9b8ee;
-    --track: #291f45;
-    --gold: #ecab48;
+    --bg: #120c1e;
+    --panel: #1c1530;
+    --panel-alt: #241b3d;
+    --border: #3a2c58;
+    --border-soft: #2a2144;
+    --text: #f3eefc;
+    --muted: #a496c7;
+    --detail: #83739f;
+    --ops-color: #cab7ee;
+    --track: #2b2148;
+    --gold: #dda23f;
     --green: #3fcf8e;
     --red: #ef6285;
     --blue: #8b93f2;
-    --purple: #bd94f5;
+    --purple: #7c42d6;
     --teal: #5ed6c7;
-    --panel-glass: rgba(28,22,49,0.68);
-    --bg-radial: #34204f;
-    --btn-hover: #291f42;
-    --primary-hover: #d4953d;
-    --logo-ink: #241900;
-    --shimmer: rgba(210,175,255,0.06);
-    --hover-row: rgba(210,175,255,0.032);
+    --panel-glass: rgba(28,21,48,0.7);
+    --bg-radial: #30204e;
+    --btn-hover: #2a2144;
+    --primary-hover: #b97e2e;
+    --logo-ink: #221600;
+    --shimmer: rgba(200,160,255,0.06);
+    --hover-row: rgba(200,160,255,0.032);
   }
 
-  /* ===== Theme: Emerald — أخضر زمردي عميق مع جولد دافئ متناغم ===== */
-  body.theme-emerald{
-    --bg: #08160f;
-    --panel: #0e2318;
-    --panel-alt: #122b1e;
-    --border: #1f4835;
-    --border-soft: #193c2b;
-    --text: #eaf7ef;
-    --muted: #82b39c;
-    --detail: #669c85;
-    --ops-color: #9bd8bd;
-    --track: #163a29;
-    --gold: #e6b34c;
-    --green: #35d69a;
-    --red: #ef6f5f;
-    --blue: #58aee0;
-    --purple: #8db89f;
-    --teal: #3fd6b8;
-    --panel-glass: rgba(14,35,24,0.68);
-    --bg-radial: #144f36;
-    --btn-hover: #163b2b;
-    --primary-hover: #c9973d;
-    --logo-ink: #201700;
-    --shimmer: rgba(130,235,190,0.055);
-    --hover-row: rgba(130,235,190,0.03);
+
+  /* ===== Theme: Copper — بني/نحاسي دافئ بالكامل، من غير أي درجة خضراء ===== */
+  body.theme-copper{
+    --bg: #1a120a;
+    --panel: #241a10;
+    --panel-alt: #2c2013;
+    --border: #4a3620;
+    --border-soft: #3a2a18;
+    --text: #f7eee2;
+    --muted: #b89a78;
+    --detail: #97795a;
+    --ops-color: #d9b98c;
+    --track: #3a2a18;
+    --gold: #e0a83f;
+    --green: #c9822f;
+    --red: #e2604a;
+    --blue: #7f9fd1;
+    --purple: #6d3fc9;
+    --teal: #caa15a;
+    --panel-glass: rgba(36,26,16,0.72);
+    --bg-radial: #4a2e12;
+    --btn-hover: #3a2a18;
+    --primary-hover: #b3852f;
+    --logo-ink: #1c1400;
+    --shimmer: rgba(230,180,110,0.06);
+    --hover-row: rgba(230,180,110,0.032);
   }
 </style>
 </head>
@@ -652,8 +668,9 @@
         <option value="light">☀️ لايت</option>
         <option value="ocean">🌊 بحري</option>
         <option value="royal">👑 بنفسجي/جولد</option>
-        <option value="emerald">💚 أخضر زمردي</option>
+        <option value="copper">🟤 نحاسي دافئ</option>
       </select>
+      <button class="btn" id="gaugeStyleBtn">⏺ شكل المؤشر: حلقات</button>
       <button class="btn" id="soundToggleBtn">🔔 صوت الإنجاز</button>
       <button class="btn" id="addSourceBtn">🔗 ربط شهر جديد</button>
       <button class="btn primary" id="addOrderBtn">＋ فتح الشيت</button>
@@ -711,22 +728,49 @@
       <svg width="100%" height="64" viewBox="0 0 220 64" id="procUserChartSvg" style="margin-top:8px; display:block;"></svg>
     </div>
     <div class="kpi trend" style="--kpi-color:var(--gold)">
-      <div class="top-label">تطور التوفير التراكمي <b id="kpiTrendPct">0%</b></div>
+      <div class="top-label">تطور التوفير التراكمي (كل الشهور) <b id="kpiTrendPct" data-tooltip="متوسط النمو الشهري محسوب من التغيّر بين كل شهر والي قبله">0%</b></div>
       <svg class="spark" width="100%" height="46" viewBox="0 0 220 46" preserveAspectRatio="none" id="sparkSvg"></svg>
     </div>
-    <div class="kpi gauge">
-      <div class="gauge-ring">
-        <svg width="78" height="78">
-          <circle cx="39" cy="39" r="33" fill="none" stroke="var(--track)" stroke-width="8"/>
-          <circle cx="39" cy="39" r="33" fill="none" stroke="var(--gold)" stroke-width="8"
-            stroke-linecap="round" id="gaugeCircle" stroke-dasharray="207" stroke-dashoffset="207"/>
-        </svg>
-        <div class="pct" id="gaugePct">0%</div>
+    <div class="kpi gauge" style="--kpi-color:var(--gold)">
+      <div class="gauge-visual">
+        <div class="gauge-ring">
+          <svg width="78" height="78">
+            <circle cx="39" cy="39" r="33" fill="none" stroke="var(--track)" stroke-width="8"/>
+            <circle cx="39" cy="39" r="33" fill="none" stroke="var(--gold)" stroke-width="8"
+              stroke-linecap="round" id="gaugeCircle" stroke-dasharray="207" stroke-dashoffset="207"/>
+          </svg>
+          <div class="pct" id="gaugePct">0%</div>
+        </div>
+        <div class="gauge-bar-mode">
+          <div class="pct" id="gaugePctBar">0%</div>
+          <div class="bar-track2"><div class="bar-fill2" id="gaugeBarFill" style="width:0%"></div></div>
+        </div>
       </div>
       <div class="gauge-text">
-        <div class="label">نسبة تحقيق الهدف</div>
+        <div class="label">نسبة تحقيق هدف متوسط الأوردر</div>
         <div class="value" id="gaugeValueText">-</div>
         <div class="detail">مقارنة بالمتوسط المستهدف</div>
+      </div>
+    </div>
+    <div class="kpi gauge" style="--kpi-color:var(--green)">
+      <div class="gauge-visual">
+        <div class="gauge-ring">
+          <svg width="78" height="78">
+            <circle cx="39" cy="39" r="33" fill="none" stroke="var(--track)" stroke-width="8"/>
+            <circle cx="39" cy="39" r="33" fill="none" stroke="var(--green)" stroke-width="8"
+              stroke-linecap="round" id="gaugeCircleTotal" stroke-dasharray="207" stroke-dashoffset="207"/>
+          </svg>
+          <div class="pct" id="gaugePctTotal">0%</div>
+        </div>
+        <div class="gauge-bar-mode">
+          <div class="pct" id="gaugePctTotalBar">0%</div>
+          <div class="bar-track2"><div class="bar-fill2" id="gaugeBarFillTotal" style="width:0%; background:linear-gradient(90deg, var(--teal), var(--green) 60%, color-mix(in srgb, var(--green) 70%, white));"></div></div>
+        </div>
+      </div>
+      <div class="gauge-text">
+        <div class="label" id="gaugeTotalLabel">نسبة تحقيق تارجت إجمالي التوفير</div>
+        <div class="value" id="gaugeValueTextTotal">-</div>
+        <div class="detail">مقارنة الإجمالي بالتارجت المحدد</div>
       </div>
     </div>
   </div>
@@ -1096,37 +1140,22 @@
     document.getElementById("gaugeCircle").setAttribute("stroke-dasharray", circumference.toFixed(1));
     document.getElementById("gaugeCircle").setAttribute("stroke-dashoffset", offset.toFixed(1));
     document.getElementById("gaugePct").textContent = Math.round(gaugePctRaw) + "%";
+    document.getElementById("gaugePctBar").textContent = Math.round(gaugePctRaw) + "%";
+    document.getElementById("gaugeBarFill").style.width = gaugeClamped.toFixed(1) + "%";
     document.getElementById("gaugeValueText").textContent = fmtMoney(scopeAvg) + " / " + fmtMoney(TARGET_AVG);
 
-    const scopeByDate = {};
-    scopeRows.forEach(r => { scopeByDate[r.eta] = (scopeByDate[r.eta]||0) + r.savings; });
-    const scopeDates = Object.keys(scopeByDate).sort();
-    const scopeCum = []; let run = 0;
-    scopeDates.forEach(d => { run += scopeByDate[d]; scopeCum.push(run); });
-    if(scopeCum.length){
-      const maxC = Math.max(...scopeCum), minC = Math.min(...scopeCum);
-      const pts = scopeCum.map((v,i)=>{
-        const x = pad + (scopeCum.length>1 ? (i/(scopeCum.length-1))*(w-2*pad) : (w-2*pad)/2);
-        const y = h-pad - ((v-minC)/(maxC-minC||1))*(h-2*pad);
-        return [x,y];
-      });
-      const pathD = pts.map((p,i)=> (i===0?"M":"L")+p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
-      const areaD = pathD + ` L${pts[pts.length-1][0].toFixed(1)},${h} L${pts[0][0].toFixed(1)},${h} Z`;
-      const goldNow = getCSSVar('--gold');
-      svg.innerHTML = `
-        <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="${goldNow}" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="${goldNow}" stop-opacity="0"/>
-        </linearGradient></defs>
-        <path d="${areaD}" fill="url(#sg)" stroke="none"/>
-        <path d="${pathD}" fill="none" stroke="${goldNow}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
-      `;
-      const g = scopeCum.length>1 ? ((scopeCum[scopeCum.length-1]-scopeCum[0])/scopeCum[0]*100) : 0;
-      document.getElementById("kpiTrendPct").textContent = (g>=0?"+":"") + Math.round(g) + "%";
-    } else {
-      svg.innerHTML = "";
-      document.getElementById("kpiTrendPct").textContent = "0%";
-    }
+    const totalPctRaw = totalTarget ? (scopeTotal/totalTarget)*100 : 0;
+    const totalClamped = Math.min(totalPctRaw, 100);
+    const offsetTotal = circumference - (totalClamped/100)*circumference;
+    document.getElementById("gaugeCircleTotal").setAttribute("stroke-dasharray", circumference.toFixed(1));
+    document.getElementById("gaugeCircleTotal").setAttribute("stroke-dashoffset", offsetTotal.toFixed(1));
+    document.getElementById("gaugePctTotal").textContent = Math.round(totalPctRaw) + "%";
+    document.getElementById("gaugePctTotalBar").textContent = Math.round(totalPctRaw) + "%";
+    document.getElementById("gaugeBarFillTotal").style.width = totalClamped.toFixed(1) + "%";
+    document.getElementById("gaugeValueTextTotal").textContent = fmtMoney(scopeTotal) + " / " + fmtMoney(totalTarget);
+    document.getElementById("gaugeTotalLabel").textContent = monthFilter.value
+      ? "نسبة تحقيق تارجت توفير " + arMonthLabel(monthFilter.value)
+      : "نسبة تحقيق تارجت إجمالي التوفير (كل الشهور)";
 
     const scopeByVessel = {};
     scopeRows.forEach(r => { scopeByVessel[r.vessel] = (scopeByVessel[r.vessel]||0) + r.savings; });
@@ -1206,6 +1235,51 @@
     }
   }
 
+  function updateTrendChart(){
+    // بيستخدم كل البيانات دايمًا (مش متأثر بفلتر الشهر) عشان يعرض الصورة الكاملة لتطور التوفير عبر الزمن
+    if(!monthKeys.length){
+      svg.innerHTML = "";
+      document.getElementById("kpiTrendPct").textContent = "0%";
+      return;
+    }
+    const totalsByMonth = monthKeys.map(mk => rows.filter(r => r.eta.slice(0,7) === mk).reduce((s,r)=>s+r.savings,0));
+    const cum = []; let run = 0;
+    totalsByMonth.forEach(v => { run += v; cum.push(run); });
+
+    const maxC = Math.max(...cum, 1);
+    const minC = 0; // بداية حقيقية من صفر عشان الشكل يعكس التراكم الفعلي مش نسبة مضلّلة
+    const n = cum.length;
+    const pts = cum.map((v,i)=>{
+      const x = pad + (n>1 ? (i/(n-1))*(w-2*pad) : (w-2*pad)/2);
+      const y = h-pad - ((v-minC)/(maxC-minC||1))*(h-2*pad);
+      return [x,y];
+    });
+    const pathD = pts.map((p,i)=> (i===0?"M":"L")+p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
+    const areaD = pathD + ` L${pts[pts.length-1][0].toFixed(1)},${h} L${pts[0][0].toFixed(1)},${h} Z`;
+    const goldNow = getCSSVar('--gold');
+    svg.innerHTML = `
+      <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="${goldNow}" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="${goldNow}" stop-opacity="0"/>
+      </linearGradient></defs>
+      <path d="${areaD}" fill="url(#sg)" stroke="none"/>
+      <path d="${pathD}" fill="none" stroke="${goldNow}" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+    `;
+
+    // متوسط النمو الشهري = متوسط نسب التغيّر بين كل شهر والي قبله (بيتجاهل الشهور اللي قبلها كان صفر عشان يتفادى قسمة على صفر ونتايج غير منطقية)
+    let growthRates = [];
+    for(let i=1;i<totalsByMonth.length;i++){
+      const prev = totalsByMonth[i-1], curr = totalsByMonth[i];
+      if(prev > 0) growthRates.push((curr-prev)/prev*100);
+    }
+    if(growthRates.length){
+      const avgGrowth = growthRates.reduce((s,v)=>s+v,0) / growthRates.length;
+      document.getElementById("kpiTrendPct").textContent = (avgGrowth>=0?"+":"") + Math.round(avgGrowth) + "%";
+    } else {
+      document.getElementById("kpiTrendPct").textContent = "-";
+    }
+  }
+
   function render(){
     const q = searchInput.value.trim().toLowerCase();
     const vf = vesselFilter.value;
@@ -1261,6 +1335,7 @@
 
     updateKPIs(monthScope);
     updateProcUserBox(monthScope, puf);
+    updateTrendChart();
   }
 
   function exportCSV(){
@@ -1423,6 +1498,7 @@
   modalBackdrop.addEventListener("click", (e) => { if(e.target === modalBackdrop) closeRowModal(); });
   document.addEventListener("keydown", (e) => { if(e.key === "Escape") closeRowModal(); });
 
+
   const toastEl = document.getElementById("toast");
   const toastTextEl = document.getElementById("toastText");
   let toastTimer = null;
@@ -1447,7 +1523,7 @@
   document.getElementById("addSourceBtn").addEventListener("click", addMonthSource);
   document.getElementById("addOrderBtn").addEventListener("click", () => window.open(SHEET_EDIT_URL, "_blank"));
 
-  const THEME_CLASSES = ["theme-light","theme-ocean","theme-royal","theme-emerald"];
+  const THEME_CLASSES = ["theme-light","theme-ocean","theme-royal","theme-copper"];
   const themeSelect = document.getElementById("themeSelect");
   function applyTheme(name, skipRerender){
     document.body.classList.remove(...THEME_CLASSES);
@@ -1461,6 +1537,18 @@
   }
   themeSelect.addEventListener("change", () => applyTheme(themeSelect.value));
   applyTheme(localStorage.getItem('psd_theme') || "dark", true);
+
+  const gaugeStyleBtn = document.getElementById("gaugeStyleBtn");
+  function applyGaugeStyle(style){
+    document.body.classList.toggle("gauge-bar-style", style === "bar");
+    gaugeStyleBtn.textContent = style === "bar" ? "▭ شكل المؤشر: أعمدة" : "⏺ شكل المؤشر: حلقات";
+    localStorage.setItem('psd_gaugeStyle', style);
+  }
+  gaugeStyleBtn.addEventListener("click", () => {
+    const next = document.body.classList.contains("gauge-bar-style") ? "ring" : "bar";
+    applyGaugeStyle(next);
+  });
+  applyGaugeStyle(localStorage.getItem('psd_gaugeStyle') || "ring");
 
   const AUTO_REFRESH_MS = 7 * 60 * 1000;
   let isRefreshing = false;
